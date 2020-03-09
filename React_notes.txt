@@ -7,5 +7,73 @@ State={
 count:1;
 };
 
+If we wants to get the count value -> this.state.count
+Also we can do like this to avoid repetation, const {count} = this.state;
+
 We can set the dynamic data in render method -> using {}
 {} -> it should contains some value, we can also call the function that should return the value.
+
+How to set the attributes:
+<img scr={this.state.} alt=""/>
+To change the text like batch -> use the className = "badge badge-primary"
+className = "badge badge-primary m-2"(margin 2)
+
+Bootstrap install: 
+npm i bootstrap@4.1.1
+then import in index.js -> import 'bootstrap/dist/css/bootstrap.css'
+
+styles={
+fontSize:50;
+fontWeight:"bold"
+};
+<span style{this.style}></span>
+or
+<span style{{fontSize:50}}></span>
+
+when we are modifying the const value, need to use let instead of const.
+render(){
+let classes = "badge m-2 badge-";
+classes += this.state.count ===0? "warning" : "primary";
+}
+(use refractor by right click, to move the above lines in separate method)
+we can also set the className dynamically. className={classes}
+
+Rendering list of items:
+state={
+tags:["tag1","tag2","tag3"]
+};
+
+<ul>{this.state.tags.map(tag=> <li>{tag}</li>)}</ul>   ---------unique key error
+<ul>{this.state.tags.map(tag=> <li key={tag}>{tag}</li>)}</ul>
+
+
+Button onClick={}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
