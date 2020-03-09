@@ -1,0 +1,11 @@
+Returning 2 tags in render method,
+use the div -> it leads to extra div.
+So use <React.Fragment>
+
+Set the properties:
+State={
+count:1;
+};
+
+We can set the dynamic data in render method -> using {}
+{} -> it should contains some value, we can also call the function that should return the value.
