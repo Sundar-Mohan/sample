@@ -50,6 +50,129 @@ tags:["tag1","tag2","tag3"]
 Button onClick={}
 
 
+If the function is part of the obj, "this" references the obj itself.
+If the function is not part of the onj, "this" refers to the global obj in node, window obj in browsers.
+
+Eg:1
+const video={   //this the video obj created
+title:'a',
+play(){
+ console.log(this); // it refers the current obj
+}
+};
+video.stop=function(){   // creating the stop method in video obj
+console.log(this);       // this refers the current obj.
+}
+video.play();
+
+Eg:2
+//individual function
+function play(){
+console.log(this);    //this return the window obj.
+}
+
+Eg:3
+//Regular function
+function play(game){
+this.game = game;
+console.log(this);    //now this return the play obj.
+}
+const v = new play('cricket'); //when we are using new , it creates the empty obj like {}, then it sets {this.game}
+
+Eg:4
+const video={
+title:'a',
+tags:['a','b','c'],
+showTags(){
+ this.tags.forEach(function(tag){
+  console.log(this.title,tag);      //here this refers the window obj, because this is used in the regular function not in showTags method
+});
+}
+};
+video.showTags();
+
+Eg:5
+const video={
+title:'a',
+tags:['a','b','c'],
+showTags(){
+ this.tags.forEach(function(tag){
+  console.log(this,tag);      // this points the regular function, contains {firstname:"sundar"}
+}, {firstname:"sundar"});   
+}
+};
+video.showTags();
+
+Eg:6
+const video={
+title:'a',
+tags:['a','b','c'],
+showTags(){
+ this.tags.forEach(function(tag){
+  console.log(this.title,tag);      
+}, this);                           // now "this" is inside the showTags() method, now this.title points to video obj
+}
+};
+video.showTags();
+
+
+__________________________________
+
+Binding the obj to regular methods:
+ 
+Clas Counter ...{
+state={
+count:0
+};
+constructor(){
+ super();
+ this.handleIncrement = this.handlerIncrement.bind(this); //here Counter obj assigned to regular function handleIncrement()
+}
+handleIncrement(){
+  console.log("Increment clicked", this);
+}
+render(){
+return(
+<button onClick={this.handleIncrement}>Increment</button>
+)}
+}
+
+Problem for the above code, for event event handler need to write the bind .
+So, using arrow function, it will inherits the this.
+handleIncrement = () => {                        // no need the constructor for binding "this"
+ console.log("Increment Clicked", this);
+}
+
+Changing the count value:
+handleIncrement = () => {                        
+ this.setState({ count : this.state.count +1});  // setState is the method of Component class
+}
+
+
+Passing Event Arguments:
+
+doeventhandler = () =>{
+  this.handleIncrement({id:1});
+};
+handleIncrement = product => {
+console.log(product);            //it returns {id:1}
+}
+onClick ={this.doeventhandler}
+
+Now we can simplify the above code as,
+onClick={() => this.handleIncrement(product)}
+
+
+this.props -> display the current component arguments
+
+
+
+
+
+
+
+
+
 
 
 
