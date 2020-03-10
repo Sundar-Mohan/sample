@@ -164,7 +164,17 @@ onClick={() => this.handleIncrement(product)}
 
 
 this.props -> display the current component arguments
+state={
+count: this.props.value   //gets the attribute from the current class from <Counter value=>
+}
 
+Props vs State
+
+Props : data that gives to the component, it can't be modified but possible through state{}
+State : data that local or private to the component(Counter), other components can't access this state
+
+DANGER button - btn btn-danger btn-sm m-2
+onClick = {this.props.onDelete}    //deleting the count
 
 
 
