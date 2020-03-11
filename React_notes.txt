@@ -170,27 +170,91 @@ count: this.props.value   //gets the attribute from the current class from <Coun
 
 Props vs State
 
-Props : data that gives to the component, it can't be modified but possible through state{}
+Props : data that gives to the component, it can't be modified but possible through state{value=this.props.value} -> now we can change the value in any methods like, this.state.value=0;
 State : data that local or private to the component(Counter), other components can't access this state
 
 DANGER button - btn btn-danger btn-sm m-2
 onClick = {this.props.onDelete}    //deleting the count
 
+Passing arguments in Counter class:
+//Instead of calling <Counter/> component, use the below code.
+
+state={
+counters:[
+{id:1, value:0},
+{id:2, value:0},
+{id:3, value:0},
+{id:4, value:0},
+]
+};
+render(){
+return(
+this.state.counters.map(counter => (<Counter key{counter.id} value{counter.value}/>))   //this Counter arguments  are get using this.props
+);
+}
 
 
+Calling method in another component:
+class Counter{
+.
+.
+<button onclick={this.props.onDelete} >
+//<button onclick={() => this.props.onDelete(this.props.id)} >     //delete using id
+}
+
+class Counters{
+.
+onDelete = (counterId) => {           //here counterId is this.props.id
+
+}
+.
+render(){
+return <Counter onClick={this.onDelete}>
+}
+}
+
+Var vs let:
+
+Eg:1
+ function start(){
+for (let i=0; i<5; i++){
+   console.log(i);               //let scope within the for block
+}
+   console.log(i);               //prints i-> undefined/error
+}
+start();
+
+Eg:2
+ function start(){
+for (var i=0; i<5; i++){
+   console.log(i);               //var scope within the full method block not only in for, this is the disadvantage of var uasge.
+}
+   console.log(i);               //prints i-> 5
+}
+start();
+
+//before ES6, we used var to declare variables. it creates function-scope variables.
+//after ES6, we used let and const to declare variables and contants. It creates block-scope variables.
 
 
+Eg:3
+function start(){
+for (var i=0; i<5; i++){
+   if(true){
+ var color = 'red'             //If we use let, console prints error.
+}            
+}
+   console.log(color);      //prints red.          
+}
+start();
 
+_____________________________________________________________________
+var color = 'red';
+let age = 30;
 
-
-
-
-
-
-
-
-
-
+Here, var is global variable attached to window obj.
+     so in Console, type window.color, will see the result got.
+But let not assigned to window obj.
 
 
 
